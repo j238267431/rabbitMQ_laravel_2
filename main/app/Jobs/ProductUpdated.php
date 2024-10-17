@@ -27,12 +27,15 @@ class ProductUpdated implements ShouldQueue
     public function handle(): void
     {
         $product = Product::find($this->data['id']);
-
+        $tag = $product->tag();
         $product->update([
             'title' => $this->data['title'],
             'image' => $this->data['image'],
             'created_at' => $this->data['created_at'],
             'updated_at' => $this->data['updated_at'],
+        ]);
+        $tag->update([
+            'tag_id' => $this->data['tagId'],
         ]);
 
     }
